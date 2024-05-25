@@ -27,9 +27,9 @@ class OpenReviewCrawler:
             qna_texts = ''
             for user_id, qna in zip(user_ids, oral_submission.details['replies']):
                 if user_id[0] == user_id[1]:
-                    qna_texts += f'``` Authors to Reviewers\n'
+                    qna_texts += f'\n``` Authors to Reviewers\n'
                 else:
-                    qna_texts += f'```{user_id[0]} to {user_id[1]}\n'
+                    qna_texts += f'\n``` {user_id[0]} to {user_id[1]}\n'
                 qna = qna['content']
                 if qna.get('summary', False):
                     qna_texts += '\nSummary: ' + qna['summary']['value']
@@ -41,7 +41,7 @@ class OpenReviewCrawler:
                 else:
                     qna_texts += '\nMetaReview: ' + qna['metareview']['value']
                     break
-                qna_texts += '\nReview ends ```\n'
+                qna_texts += '\nConversation finished ```\n'
 
             filename = oral_submission.details['replies'][0]['signatures'][0].split('/')[-2]
             qna_output = {'title' : oral_submission.content['title']['value'], 'qna' : qna_texts}
